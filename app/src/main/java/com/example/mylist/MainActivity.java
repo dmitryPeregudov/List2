@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                data.setText("Elements in order "+list.print());break;
 
             case R.id.sort:list.sort();result.setText("Result: "+list.print());break;
-            case R.id.recursionSort:list.recursionSort(list.getFirstListElement());result.setText("Result: "+list.print());break;
+            case R.id.recursionSort:list.recurs(list.getFirstListElement());result.setText("Result: "+list.print());break;
         }
 
     }

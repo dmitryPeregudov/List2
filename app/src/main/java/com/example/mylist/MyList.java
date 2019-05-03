@@ -7,7 +7,7 @@ public class MyList {
     private ListElement head;
     private ListElement tail;
     int count;
-
+    int recursionCount;
 
     String TAG = "MyLog";
 
@@ -18,12 +18,13 @@ public class MyList {
         if (head == null) {
             head = a;
             tail = a;
-            Log.d(TAG, "if " + tail.data);
+
+
             count++;
         } else {
             tail.next = a;
             tail = a;
-            Log.d(TAG, "ELSE " + tail.data);
+            recursionCount=count;
            ++ count;
         }
 
@@ -31,54 +32,40 @@ public class MyList {
 
 
     public void sort() {
+       ListElement a=head;
+       int buffer[]=new int [count];
+       while (a!=null){
+           for (int i=0;i<count;i++){
+               buffer[i]=a.data;
+               a=a.next;
+           }
+       }
+       a=head;
 
-        int []a=new int[count];
-        ListElement t = head;
-        int i=0;
+       for (int j=count-1;j>=0;j--) {
+           a.data = buffer[j];
+           if (a.next==null)break;
+           a=a.next;
 
-        while (t != null) {
-                a[i]=t.data;
-                i++;
-                t = t.next;
+       }
 
-            }
-                 bubbleSort(a);
-                    t=head;
-                    for (int j=0;j<a.length;j++){
-                        t.data=a[j];
-                        if (t.next==null)break;
-                        t=t.next;
-                    }
     }
 
     public int recursionSort(ListElement e) {
-        int a=0;
 
-        if (e.next!=null) {
+if (e.next==null){return e.data;}
+int a=e.data;
+e.data=recursionSort(e.next);
+e.next.data=a;
 
 
-            if (tail.data<e.data){
-                a = e.data;
-            e.data = tail.data;
-            tail.data = a;}
-
-            if (e.data==recursionSort(e.next)){recursionSort(e.next);}
-if (e.data<head.data){
-    a = e.data;
-    e.data = head.data;
-    head.data = a;
-}
-            if (e.data > recursionSort(e.next)) {
-                                a = e.data;
-                e.data = e.next.data;
-                e.next.data = a;
-            }
-
+     return e.data; }
+     public void recurs (ListElement e){
+        while (e.next!=null){
+            recursionSort(e);
+            e=e.next;
         }
-
-
-return e.data;
-    }
+     }
 
     public String print() {
         String result = "Null";
@@ -88,8 +75,7 @@ return e.data;
             result = "";
             while (t != null) {
                 result += t.data + " ";
-                Log.d(TAG, "!!!! " + t.data);
-                t = t.next;
+                      t = t.next;
 
             }
         }
@@ -97,19 +83,7 @@ return e.data;
     }
 
 
-    private static void bubbleSort(int[] arr){
 
-        for(int i = arr.length-1 ; i > 0 ; i--){
-            for(int j = 0 ; j < i ; j++){
-
-            if( arr[j] > arr[j+1] ){
-                int tmp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = tmp;
-            }
-        }
-    }
-}
 
 public ListElement getFirstListElement(){
       return head;
